@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-// Connecting to ROS 
-var ROSLIB = require('roslib');
+// Connecting to ROS
+import ROSLIB from 'roslib';
 
 var ros = new ROSLIB.Ros({
-    url : 'ws://localhost:9090'
+  url: 'ws://localhost:9090'
 });
 
 ros.on('connection', function() {
@@ -23,23 +23,23 @@ console.log('Connection to websocket server closed.');
 // ------------------
 
 var cmdVel = new ROSLIB.Topic({
-  ros : ros,
-  name : '/cmd_vel',
-  messageType : 'geometry_msgs/Twist'
+  ros: ros,
+  name: '/cmd_vel',
+  messageType: 'geometry_msgs/Twist'
 });
 
-var twist = new ROSLIB.Message({
-linear : {
-  x : 0.1,
-  y : 0.2,
-  z : 0.3
+var twist = {
+linear: {
+  x: 0.1,
+  y: 0.2,
+  z: 0.3
 },
-angular : {
-  x : -0.1,
-  y : -0.2,
-  z : -0.3
+angular: {
+  x: -0.1,
+  y: -0.2,
+  z: -0.3
 }
-});
+};
 
-console.log("Publishing cmd_vel");
+console.log('Publishing cmd_vel');
 cmdVel.publish(twist);

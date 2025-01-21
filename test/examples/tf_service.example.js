@@ -1,11 +1,11 @@
-var expect = require('chai').expect;
-var ROSLIB = require('../..');
+import { describe, it, expect } from 'vitest';
+import * as ROSLIB from '../../src/RosLib.js';
 
 describe('TF2 Republisher Service Example', function() {
-    it('tf republisher', function(done) {
+    it('tf republisher', () => new Promise((done) =>  {
         var ros = new ROSLIB.Ros({
           // Use the service interface to tf2_web_republisher
-          groovyCompatibility : false
+          groovyCompatibility: false
         });
         ros.connect('ws://localhost:9090');
 
@@ -22,9 +22,9 @@ describe('TF2 Republisher Service Example', function() {
             expect(tf.translation).to.be.a.instanceof(ROSLIB.Vector3);
             done();
         });
-    });
+    }));
 
-    it('tf republisher alternative syntax', function(done) {
+    it('tf republisher alternative syntax', () => new Promise((done) =>  {
         var ros = new ROSLIB.Ros({
             url: 'ws://localhost:9090'
         });
@@ -41,5 +41,5 @@ describe('TF2 Republisher Service Example', function() {
             expect(tf.translation).to.be.a.instanceof(ROSLIB.Vector3);
             done();
         });
-    });
+    }));
 });

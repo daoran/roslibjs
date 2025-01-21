@@ -1,13 +1,5 @@
-var mixin = require('../mixin');
-
-var core = module.exports = {
-    Ros: require('./Ros'),
-    Topic: require('./Topic'),
-    Message: require('./Message'),
-    Param: require('./Param'),
-    Service: require('./Service'),
-    ServiceRequest: require('./ServiceRequest'),
-    ServiceResponse: require('./ServiceResponse')
-};
-
-mixin(core.Ros, ['Param', 'Service', 'Topic'], core);
+export {default as Ros} from './Ros.js';
+export {default as Topic} from './Topic.js';
+export {default as Param} from './Param.js';
+export {default as Service} from './Service.js';
+export {default as Action} from './Action.js';

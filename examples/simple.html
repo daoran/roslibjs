@@ -2,8 +2,8 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<script src="https://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
-<script src="../build/roslib.js"></script>
+<script src="https://unpkg.com/eventemitter3@latest/dist/eventemitter3.umd.min.js"></script>
+<script src="../dist/RosLib.umd.cjs"></script>
 
 <script>
   // Connecting to ROS
@@ -50,7 +50,7 @@
 
   // Then we create the payload to be published. The object we pass in to ros.Message matches the
   // fields defined in the geometry_msgs/Twist.msg definition.
-  var twist = new ROSLIB.Message({
+  var twist = {
     linear : {
       x : 0.1,
       y : 0.2,
@@ -61,13 +61,13 @@
       y : -0.2,
       z : -0.3
     }
-  });
+  };
 
   // And finally, publish.
   cmdVel.publish(twist);
 
-  //Subscribing to a Topic
-  //----------------------
+  // Subscribing to a Topic
+  // ----------------------
 
   // Like when publishing a topic, we first create a Topic object with details of the topic's name
   // and message type. Note that we can call publish or subscribe on the same topic object.
@@ -97,10 +97,10 @@
 
   // Then we create a Service Request. The object we pass in to ROSLIB.ServiceRequest matches the
   // fields defined in the rospy_tutorials AddTwoInts.srv file.
-  var request = new ROSLIB.ServiceRequest({
+  var request = {
     a : 1,
     b : 2
-  });
+  };
 
   // Finally, we call the /add_two_ints service and get back the results in the callback. The result
   // is a ROSLIB.ServiceResponse object.
@@ -139,7 +139,7 @@
     name : 'max_vel_y'
   });
 
-  //Then we set the value of the param, which is sent to the ROS Parameter Server.
+  // Then we set the value of the param, which is sent to the ROS Parameter Server.
   maxVelX.set(0.8);
   maxVelX.get(function(value) {
     console.log('MAX VAL: ' + value);

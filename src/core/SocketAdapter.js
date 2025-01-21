@@ -6,14 +6,14 @@
  * in the context of their parent object, unless bound
  * @fileOverview
  */
-'use strict';
 
-var decompressPng = require('../util/decompressPng');
-var CBOR = require('cbor-js');
-var typedArrayTagger = require('../util/cborTypedArrayTags');
+import CBOR from 'cbor-js';
+import typedArrayTagger from '../util/cborTypedArrayTags.js';
 var BSON = null;
-if(typeof bson !== 'undefined'){
-    BSON = bson().BSON;
+// @ts-expect-error -- Workarounds for not including BSON in bundle. need to revisit
+if (typeof bson !== 'undefined') {
+  // @ts-expect-error -- Workarounds for not including BSON in bundle. need to revisit
+  BSON = bson().BSON;
 }
 
 /**
@@ -24,7 +24,7 @@ if(typeof bson !== 'undefined'){
  * @namespace SocketAdapter
  * @private
  */
-function SocketAdapter(client) {
+export default function SocketAdapter(client) {
   var decoder = null;
   if (client.transportOptions.decoder) {
     decoder = client.transportOptions.decoder;
@@ -37,9 +37,17 @@ function SocketAdapter(client) {
       client.emit(message.id, message);
     } else if (message.op === 'call_service') {
       client.emit(message.service, message);
-    } else if(message.op === 'status'){
-      if(message.id){
-        client.emit('status:'+message.id, message);
+    } else if (message.op === 'send_action_goal') {
+      client.emit(message.action, message);
+    } else if (message.op === 'cancel_action_goal') {
+      client.emit(message.id, message);
+    } else if (message.op === 'action_feedback') {
+      client.emit(message.id, message);
+    } else if (message.op === 'action_result') {
+      client.emit(message.id, message);
+    } else if (message.op === 'status') {
+      if (message.id) {
+        client.emit('status:' + message.id, message);
       } else {
         client.emit('status', message);
       }
@@ -48,7 +56,13 @@ function SocketAdapter(client) {
 
   function handlePng(message, callback) {
     if (message.op === 'png') {
-      decompressPng(message.data, callback);
+      // If in Node.js..
+      if (typeof window === 'undefined') {
+        import('../util/decompressPng.js').then(({ default: decompressPng }) => decompressPng(message.data, callback));
+      } else {
+        // if in browser..
+        import('../util/shim/decompressPng.js').then(({default: decompressPng}) => decompressPng(message.data, callback));
+      }
     } else {
       callback(message);
     }
@@ -59,7 +73,8 @@ function SocketAdapter(client) {
       throw 'Cannot process BSON encoded message without BSON header.';
     }
     var reader = new FileReader();
-    reader.onload  = function() {
+    reader.onload = function () {
+      // @ts-expect-error -- this doesn't seem right, but don't want to break current type coercion assumption
       var uint8Array = new Uint8Array(this.result);
       var msg = BSON.deserialize(uint8Array);
       callback(msg);
@@ -126,5 +141,3 @@ function SocketAdapter(client) {
     }
   };
 }
-
-module.exports = SocketAdapter;

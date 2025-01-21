@@ -1,5 +1,5 @@
-var expect = require('chai').expect;
-var ROSLIB = require('..');
+import { describe, it, expect } from 'vitest';
+import * as ROSLIB from '../src/RosLib.js';
 
 
 describe('Quaternion', function() {

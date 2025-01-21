@@ -4,17 +4,25 @@
 
 ## The Standard ROS JavaScript Library
 
-For full documentation, see [the ROS wiki](http://wiki.ros.org/roslibjs) or check out some [working demos](http://robotwebtools.org/demos.html).
+For full documentation see the [ROS wiki](http://wiki.ros.org/roslibjs).
 
-[JSDoc](http://robotwebtools.org/roslibjs) can be found on the Robot Web Tools website.
+[JSDoc](https://robotwebtools.github.io/roslibjs) can be found on the Robot Web Tools website.
 
-This project is released as part of the [Robot Web Tools](http://robotwebtools.org/) effort.
+This project is released as part of the [Robot Web Tools](https://robotwebtools.github.io/) effort.
 
 ## Usage
 
-Pre-built files can be found in either [roslib.js](build/roslib.js) or [roslib.min.js](build/roslib.min.js).
+Install roslibjs with any NPM-compatible package manager via, for example,
 
-Alternatively, you can use the current release via the [JsDelivr](https://www.jsdelivr.com/) CDN: ([full](https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.js)) | ([min](https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.min.js))
+```bash
+npm install roslib
+```
+
+~Pre-built files can be found in either [roslib.js](build/roslib.js) or [roslib.min.js](build/roslib.min.js).~
+
+As we are updating to v2, we don't provide pre-built files anymore in the repo.
+
+Alternatively, you can use the v1 release via the [JsDelivr](https://www.jsdelivr.com/) CDN: ([full](https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.js)) | ([min](https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.min.js))
 
 ## Troubleshooting
 

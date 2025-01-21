@@ -1,6 +1,6 @@
-var expect = require('chai').expect;
-var CBOR = require('cbor-js');
-var cborTypedArrayTagger = require('../src/util/cborTypedArrayTags.js');
+import { describe, it, expect } from 'vitest';
+import CBOR from 'cbor-js';
+import cborTypedArrayTagger from '../src/util/cborTypedArrayTags.js';
 
 /** Convert hex string to ArrayBuffer. */
 function hexToBuffer(hex) {
